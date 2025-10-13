@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae - Popescu Maria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dac5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.1);
+        }
+        
+        /* Header cu date personale */
+        .header {
+            background-color: #260235;
+            color: white;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+        }
+        
+        .personal-info h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .personal-info p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .section {
+            padding: 2rem;
+            border-bottom: 1px solid #e9e4ed;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: #8e44ad;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #9b59b6;
+        }
+        
+        /* Experiență profesională */
+        .job {
+            margin-bottom: 2rem;
+        }
+        
+        .job:last-child {
+            margin-bottom: 0;
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .job-title {
+            font-weight: bold;
+            color: #8e44ad;
+            font-size: 1.1rem;
+        }
+        
+        .job-period {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .job-company {
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        
+        .job-description {
+            color: #666;
+            margin-left: 1rem;
+        }
+        
+        /* Educație */
+        .education-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .education-title {
+            font-weight: bold;
+            color: #8e44ad;
+        }
+        
+        .education-period {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .education-institution {
+            color: #555;
+        }
+        
+        /* Competențe */
+        .skills-category {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skills-category:last-child {
+            margin-bottom: 0;
+        }
+        
+        .skills-category h3 {
+            color: #8e44ad;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .skill-item {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .skill-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #9b59b6;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .skill-level {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Informații suplimentare */
+        .info-item {
+            margin-bottom: 1rem;
+        }
+        
+        .info-item strong {
+            color: #8e44ad;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #f5f3f7;
+            padding: 1rem 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header cu date personale -->
+        <div class="header">
+            <img src="me.JPG" alt="Fotografie profil" class="photo">
+            <div class="personal-info">
+                <h1>Dobrescu Diana-Maria</h1>
+                <p><strong>📍 Adresă:</strong> Str. Pescarusului, nr. 4, Pantelimon, Ilfov, România</p>
+                <p><strong>📞 Telefon:</strong> +40 748162162</p>
+                <p><strong>✉️ Email:</strong> diana.maria.do@email.com</p>
+                <p><strong>🎂 Data nașterii:</strong> 19 ianuarie 2005</p>
+            </div>
+        </div>
+
+        <!-- Experienta de munca -->
+        <div class="section">
+            <h2 class="section-title">Experienta Profesionala</h2>
+            
+            <div class="job">
+                <div class="job-header">
+                    <span class="job-title">Proiectant 3D/ practica de vara</span>
+                    <span class="job-period">Iulie 2025 - Prezent</span>
+                </div>
+                <p class="job-company">PTC, București</p>
+                <ul class="job-description">
+                    <li>Proiectare si asamblare in Onshape, programare in Python</li>
+                </ul>
+            </div>
+        
+        <!-- Educatie-->
+        <div class="section">
+            <h2 class="section-title">Educatie și Formare</h2>
+            
+            <div class="education-item">
+                <p class="education-title">Licenta Informatica Industriala</p>
+                <p class="education-period">Octombrie 2023 - Iulie 2027</p>
+                <p class="education-institution">Universitatea Politehnica București, Facultatea de Inginerie Industriala si Robotica</p>
+            </div>
+            
+            <div class="education-item">
+                <p class="education-title">Diplomă de Bacalaureat - Profil Matematica-Informatica Bilingv Engleza</p>
+                <p class="education-period">Septembrie 2019 - Iunie 2023</p>
+                <p class="education-institution">Colegiul Național "Ion Creanga", București</p>
+            </div>
+        </div>
+
+        <!-- Competențe personale -->
+        <div class="section">
+            <h2 class="section-title">Competente Personale</h2>
+            
+            <div class="skills-category">
+                <h3>Limbi Straine</h3>
+                <div class="skill-item">
+                    <strong>Limba Engleza</strong> - <span class="skill-level">Nivel avansat (C1)</span>
+                    <br><small>Citire: C1 | Scriere: C1 | Vorbire: B2</small>
+                </div>
+                <div class="skill-item">
+                    <strong>Limba Italiana</strong> - <span class="skill-level">Nivel mediu (B2)</span>
+                    <br><small>Citire: B2 | Scriere: B1 | Vorbire: B1</small>
+
+            <div class="skills-category">
+                <h3>Competențe Digitale</h3>
+                <div class="skill-item">C, C++, Java, Kotlin - Nivel mediu</div>
+                <div class="skill-item">Git, GitHub - Nivel avansat</div>
+                <div class="skill-item">Adobe Photoshop, Canva, Adobe Lightroom - Nivel mediu</div>
+                <div class="skill-item">Microsoft Office (Word, Excel, PowerPoint) - Nivel avansat</div>
+            </div>
+            
+            <div class="skills-category">
+                <h3>Alte Competențe</h3>
+                <div class="skill-item">Abilitati excelente de comunicare și colaborare în echipa</div>
+                <div class="skill-item">Capacitate de rezolvare rapida a problemelor</div>
+                <div class="skill-item">Atentie la detalii si orientare catre calitate</div>
+                <div class="skill-item">Gestionare eficienta a timpului si prioritizare</div>
+                <div class="skill-item">Adaptabilitate si dorinta de invatare continua</div>
+            </div>
+        </div>
+
+        <!-- Informații suplimentare -->
+        <div class="section">
+            <h2 class="section-title">Informatii Suplimentare</h2>
+            
+            <div class="info-item">
+                <strong>Premii si Diplome:</strong>
+                <ul>
+                    <li>Premiul Special III SDMC Iasi (2024)</li>
+                </ul>
+            </div>
+            
+            <div class="info-item">
+                <strong>Activități Voluntariat:</strong>
+                <ul>
+                    <li>Mentor al echipei de FTC H-Tech 19099 (2024-prezent)</li>
+                    <li>Voluntar la competitia First Tech Challenge (2023-prezent)</li>
+                    <li>Voluntar la Organizatia Studentilor din Facultatea de Inginerie Industriala si Robotica (2023-prezent)</li>
+                </ul>
+            </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Autorizez prelucrarea datelor personale în conformitate cu GDPR</p>
+            <p>Ultima actualizare: Octombrie 2025</p>
+        </div>
+    </div>
+</body>
+</html>
