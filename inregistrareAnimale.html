@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formular de înregistrare animale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styleFormular.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formular de înregistrare animale</h1>
+        
+        <p class="intro">
+            Bine ați venit la clinica noastră veterinară! Pentru a vă putea oferi cele mai bune servicii, 
+            vă rugăm să completați acest formular cu informațiile despre dumneavoastră și animalul de companie.
+        </p>
+
+        <form class="registration-form">
+            <div class="form-group">
+                <label for="owner-name">Nume stăpân:</label>
+                <input type="text" id="owner-name" name="owner-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Telefon:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pet-name">Nume animal:</label>
+                <input type="text" id="pet-name" name="pet-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="species">Specie:</label>
+                <select id="species" name="species" required>
+                    <option value="">Selectați specia</option>
+                    <option value="caine">Câine</option>
+                    <option value="pisica">Pisică</option>
+                    <option value="iepure">Iepure</option>
+                    <option value="altul">Altul</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="label-title">Sexul animalului:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="mascul" required>
+                        Mascul
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="femela" required>
+                        Femelă
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label-title">Servicii dorite:</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="vaccinare">
+                        Vaccinare
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="deparazitare">
+                        Deparazitare
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="services" value="consult">
+                        Consult
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="observations">Observații:</label>
+                <textarea id="observations" name="observations" rows="4"></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Trimite</button>
+                <button type="reset" class="btn-reset">Resetează</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
