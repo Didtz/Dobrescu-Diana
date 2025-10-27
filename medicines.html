@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacia Nucului Batran - Medicamente</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="medicine-styles.css">
+    <style>
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: var(--card-color);
+        }
+
+        .theme-toggle .icon {
+            font-size: 1.2em;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="color: var(--primary-color);">Farmacia Nucului Batran</h1>
+            <nav class="nav-links">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span class="icon" id="themeIcon">🌙</span>
+                    <span id="themeText">Mod Întunecat</span>
+                </button>
+                <a href="index.html">Acasă</a>
+                <a href="#" onclick="showSignIn()">Autentificare</a>
+                <a href="#" style="position: relative;" class="basket-icon" onclick="showBasket()">
+                    🛒 Coș <span id="cart-count" style="background: var(--primary-dark); padding: 2px 6px; border-radius: 10px; font-size: 0.8em;">0</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+        <div class="card filters-card">
+            <div class="filters">
+                <div class="filter-group">
+                    <label class="label">Căutare</label>
+                    <input type="text" id="searchInput" placeholder="Caută medicamente..." oninput="filterProducts()" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--background-color); color: var(--text-color);">
+                </div>
+                <div class="filter-group">
+                    <label class="label">Categorie</label>
+                    <select id="categoryFilter" onchange="filterProducts()">
+                        <option value="all">Toate Categoriile</option>
+                        <option value="cold">Răceală și Gripă</option>
+                        <option value="throat">Dureri în Gât</option>
+                        <option value="cough">Tuse</option>
+                        <option value="painkillers">Analgezice</option>
+                        <option value="antibiotics">Antibiotice</option>
+                        <option value="vitamins">Vitamine</option>
+                        <option value="supplements">Suplimente</option>
+                        <option value="allergy">Antialergice</option>
+                        <option value="heart">Sistem Cardiovascular</option>
+                        <option value="digestive">Sistem Digestiv</option>
+                        <option value="respiratory">Sistem Respirator</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="label">Rețetă</label>
+                    <select id="prescriptionFilter" onchange="filterProducts()">
+                        <option value="all">Toate Tipurile</option>
+                        <option value="yes">Necesită Rețetă</option>
+                        <option value="no">Fără Rețetă</option>
+                    </select>
+                </div>
+                <div class="filter-group price-filter">
+                    <label class="label">Filtru după preț:</label>
+                    <div class="price-range-container">
+                        <span class="price-label">0 Lei</span>
+                        <input id="priceRange" type="range" min="0" max="200" value="200" class="price-range" oninput="updatePriceValue(this.value)">
+                        <span id="priceValue" class="price-label">200 Lei</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-grid">
+            <!-- Medicamente pentru Răceală și Gripă - Fără Rețetă -->
+            <div class="card product-card">
+                <h3>Theraflu Extra Grip</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionTheraflu')">Descriere</button>
+                </div>
+                <div id="descriptionTheraflu" class="tab-content active">
+                    <p>Pulbere pentru soluție orală. Tratamentul simptomatic al răcelii și gripei.</p>
+                    <p>Cantitate în stoc: 45</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">35.99 Lei</p>
+                </div>
+                <button onclick="addToCart('Theraflu Extra Grip')">Adaugă în Coș</button>
+            </div>
+
+            <div class="card product-card">
+                <h3>Parasinus</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionParasinus')">Descriere</button>
+                </div>
+                <div id="descriptionParasinus" class="tab-content active">
+                    <p>Pentru congestie nazală și dureri sinusale. 12 comprimate.</p>
+                    <p>Cantitate în stoc: 60</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">28.99 Lei</p>
+                </div>
+                <button onclick="addToCart('Parasinus')">Adaugă în Coș</button>
+            </div>
+
+            <!-- Medicamente pentru Durere în Gât - Fără Rețetă -->
+            <div class="card product-card">
+                <h3>Strepsils Intensiv Miere & Lămâie</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionStrepsils')">Descriere</button>
+                </div>
+                <div id="descriptionStrepsils" class="tab-content active">
+                    <p>Pastile pentru dureri în gât. 24 pastile.</p>
+                    <p>Cantitate în stoc: 80</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">25.99 Lei</p>
+                </div>
+                <button onclick="addToCart('Strepsils Intensiv')">Adaugă în Coș</button>
+            </div>
+
+            <!-- Medicamente pentru Tuse - Fără Rețetă -->
+            <div class="card product-card">
+                <h3>ACC 600mg</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionACC')">Descriere</button>
+                </div>
+                <div id="descriptionACC" class="tab-content active">
+                    <p>Expectorant pentru tuse productivă. 10 plicuri efervescente.</p>
+                    <p>Cantitate în stoc: 40</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">32.99 Lei</p>
+                </div>
+                <button onclick="addToCart('ACC 600')">Adaugă în Coș</button>
+            </div>
+
+            <!-- Vitamine și Suplimente - Fără Rețetă -->
+            <div class="card product-card">
+                <h3>Vitamina C 1000mg</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionVitC')">Descriere</button>
+                </div>
+                <div id="descriptionVitC" class="tab-content active">
+                    <p>Susține sistemul imunitar. 20 comprimate efervescente.</p>
+                    <p>Cantitate în stoc: 100</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">29.99 Lei</p>
+                </div>
+                <button onclick="addToCart('Vitamina C 1000mg')">Adaugă în Coș</button>
+            </div>
+
+            <!-- Antibiotice - Cu Rețetă -->
+            <div class="card product-card">
+                <h3>Augmentin 1000mg</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionAugmentin')">Descriere</button>
+                </div>
+                <div id="descriptionAugmentin" class="tab-content active">
+                    <p>Antibiotic cu spectru larg. 10 comprimate filmate.</p>
+                    <p>Cantitate în stoc: 25</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">65.99 Lei</p>
+                    <p><strong style="color: var(--primary-dark);">⚕️ Necesită Rețetă</strong></p>
+                </div>
+                <button onclick="addToCart('Augmentin', true)">Adaugă în Coș (Necesită Rețetă)</button>
+            </div>
+
+            <!-- Antitermice - Fără Rețetă -->
+            <div class="card product-card">
+                <h3>Paracetamol 500mg</h3>
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab(event, 'descriptionParacetamol')">Descriere</button>
+                </div>
+                <div id="descriptionParacetamol" class="tab-content active">
+                    <p>Antitermic și analgezic. 20 comprimate.</p>
+                    <p>Cantitate în stoc: 150</p>
+                    <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">15.99 Lei</p>
+                </div>
+                <button onclick="addToCart('Paracetamol')">Adaugă în Coș</button>
+            </div>
+
+            <!-- More products will be loaded dynamically -->
+        </div>
+    </main>
+
+    <!-- Cart Hover Popup -->
+    <div class="cart-popup" id="cartPopup" style="display: none; position: absolute; right: 20px; top: 80px; background: var(--background-color); border: 1px solid var(--border-color); padding: 1rem; border-radius: 8px; box-shadow: var(--shadow); min-width: 300px; z-index: 1000;">
+        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Coșul meu</h3>
+        <div id="cartItems" style="max-height: 300px; overflow-y: auto;">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <p style="display: flex; justify-content: space-between;">
+                <span>Total:</span>
+                <span id="cartTotal" style="font-weight: bold; color: var(--primary-color)">0.00 Lei</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        let cart = [];
+        let products = [];
+        let cartCount = 0;
+
+        // Load all products when page loads
+        window.onload = function() {
+            loadAllProducts();
+            const cartIcon = document.querySelector('.basket-icon');
+            const cartPopup = document.getElementById('cartPopup');
+            
+            cartIcon.addEventListener('mouseenter', () => {
+                cartPopup.style.display = 'block';
+                updateCartDisplay();
+            });
+
+            cartIcon.addEventListener('mouseleave', (e) => {
+                const rect = cartPopup.getBoundingClientRect();
+                if (
+                    e.clientX < rect.left ||
+                    e.clientX > rect.right ||
+                    e.clientY < rect.top ||
+                    e.clientY > rect.bottom
+                ) {
+                    cartPopup.style.display = 'none';
+                }
+            });
+
+            cartPopup.addEventListener('mouseleave', () => {
+                cartPopup.style.display = 'none';
+            });
+        }
+
+        function loadAllProducts() {
+            products = [
+                { 
+                    name: 'Theraflu Extra Grip',
+                    price: 35.99,
+                    category: 'cold',
+                    prescription: false,
+                    description: 'Pulbere pentru soluție orală. Tratamentul simptomatic al răcelii și gripei.',
+                    administration: 'Dizolvați conținutul plicului în apă caldă și beți o dată la 4–6 ore; nu depășiți 4 doze/24h. A se administra la adulți și adolescenți peste 12 ani.',
+                    sideEffects: [
+                        'Nervozitate',
+                        'Insomnie',
+                        'Amețeli'
+                    ],
+                    stock: 45
+                },
+                { 
+                    name: 'Parasinus',
+                    price: 28.99,
+                    category: 'cold',
+                    prescription: false,
+                    description: 'Pentru congestie nazală și dureri sinusale. 12 comprimate.',
+                    administration: '1 comprimat la 8–12 ore, maxim 3 comprimate/zi. A se administra cu prudență la persoanele cu hipertensiune.',
+                    sideEffects: [
+                        'Somnolență',
+                        'Uscăciunea gurii'
+                    ],
+                    stock: 60
+                },
+                {
+                    name: 'Strepsils Intensiv Miere & Lămâie',
+                    price: 25.99,
+                    category: 'throat',
+                    prescription: false,
+                    description: 'Pastile pentru dureri în gât. 24 pastile.',
+                    administration: 'Sugeți câte o pastilă la nevoie, până la 8 pe zi.',
+                    sideEffects: [
+                        'Iritație locală ușoară'
+                    ],
+                    stock: 80
+                },
+                {
+                    name: 'ACC 600mg',
+                    price: 32.99,
+                    category: 'cough',
+                    prescription: false,
+                    description: 'Expectorant pentru tuse productivă. 10 plicuri efervescente.',
+                    administration: 'Dizolvați 1 plic în apă și beți o dată pe zi, preferabil seara.',
+                    sideEffects: [
+                        'Greață',
+                        'Tulburări digestive'
+                    ],
+                    stock: 40
+                },
+                {
+                    name: 'Vitamina C 1000mg',
+                    price: 29.99,
+                    category: 'vitamins',
+                    prescription: false,
+                    description: 'Susține sistemul imunitar. 20 comprimate efervescente.',
+                    administration: 'Dizolvați 1 comprimat în apă, 1 dată pe zi sau conform recomandării specialistului.',
+                    sideEffects: [
+                        'Disconfort digestiv în doze mari'
+                    ],
+                    stock: 100
+                },
+                {
+                    name: 'Augmentin 1000mg',
+                    price: 65.99,
+                    category: 'antibiotics',
+                    prescription: true,
+                    description: 'Antibiotic cu spectru larg. 10 comprimate filmate.',
+                    administration: 'Conform prescripției medicului; de obicei 1 comprimat la 12 ore. A se lua cu alimente pentru a reduce disconfortul gastric.',
+                    sideEffects: [
+                        'Diaree',
+                        'Greață',
+                        'Reacții alergice (erupții cutanate)'
+                    ],
+                    stock: 25
+                },
+                {
+                    name: 'Paracetamol 500mg',
+                    price: 15.99,
+                    category: 'painkillers',
+                    prescription: false,
+                    description: 'Antitermic și analgezic. 20 comprimate.',
+                    administration: '1–2 comprimate la 4–6 ore, fără a depăși 8 comprimate/24 ore la adult.',
+                    sideEffects: [
+                        'Poate afecta ficatul în doze mari'
+                    ],
+                    stock: 150
+                },
+                {
+                    name: 'Ibuprofen 400mg',
+                    price: 18.99,
+                    category: 'painkillers',
+                    prescription: false,
+                    description: 'Antiinflamator nesteroidian pentru durere și febră. 30 comprimate filmate.',
+                    administration: '1 comprimat la 6–8 ore; nu depășiți 3 comprimate/24 h fără recomandare medicală.',
+                    sideEffects: [
+                        'Dureri de stomac',
+                        'Greață',
+                        'Risc crescut de sângerare'
+                    ],
+                    stock: 120
+                },
+                {
+                    name: 'Nurofen Răceală și Gripă',
+                    price: 32.99,
+                    category: 'cold',
+                    prescription: false,
+                    description: 'Tratamentul simptomatic al răcelii și gripei. 24 comprimate filmate.',
+                    administration: 'Conform prospectului: 1 comprimat la 6–8 ore, nu depășiți doza recomandată.',
+                    sideEffects: [
+                        'Somnolență',
+                        'Amețeli',
+                        'Dureri de stomac'
+                    ],
+                    stock: 85
+                },
+                {
+                    name: 'Aspenter 75mg',
+                    price: 22.99,
+                    category: 'heart',
+                    prescription: true,
+                    description: 'Antiagregant plachetar. 30 comprimate gastrorezistente.',
+                    administration: '1 comprimat pe zi, de obicei dimineața, cu apă.',
+                    sideEffects: [
+                        'Sângerări',
+                        'Vânătăi',
+                        'Dureri de stomac'
+                    ],
+                    stock: 60
+                },
+                {
+                    name: 'Omeprazol 20mg',
+                    price: 25.99,
+                    category: 'digestive',
+                    prescription: true,
+                    description: 'Pentru reflux gastroesofagian și ulcer. 14 capsule.',
+                    administration: '1 capsulă înainte de masă, preferabil dimineața, pe stomacul gol.',
+                    sideEffects: [
+                        'Dureri de cap',
+                        'Diaree',
+                        'Greață'
+                    ],
+                    stock: 45
+                },
+                {
+                    name: 'Claritine 10mg',
+                    price: 28.99,
+                    category: 'allergy',
+                    prescription: false,
+                    description: 'Antihistaminic pentru alergii. 10 comprimate.',
+                    administration: '1 comprimat pe zi, preferabil noaptea dacă apare somnolență.',
+                    sideEffects: [
+                        'Somnolență',
+                        'Gură uscată'
+                    ],
+                    stock: 70
+                },
+                {
+                    name: 'Ventolin 100mcg',
+                    price: 45.99,
+                    category: 'respiratory',
+                    prescription: true,
+                    description: 'Bronhodilatator pentru astm. Inhaler 200 doze.',
+                    administration: 'Aerosol inhalator: 1–2 pufuri la nevoie, conform recomandării medicului. A nu se depăși doza prescrisă.',
+                    sideEffects: [
+                        'Tremurături',
+                        'Palpitații',
+                        'Crampe musculare'
+                    ],
+                    stock: 30
+                },
+                {
+                    name: 'Magneziu + B6',
+                    price: 19.99,
+                    category: 'supplements',
+                    prescription: false,
+                    description: 'Supliment pentru sistem nervos și muscular. 50 comprimate.',
+                    administration: '1 comprimat pe zi sau conform recomandării specialistului.',
+                    sideEffects: [
+                        'Efecte laxative în doze mari'
+                    ],
+                    stock: 90
+                },
+                {
+                    name: 'Espumisan 40mg',
+                    price: 21.99,
+                    category: 'digestive',
+                    prescription: false,
+                    description: 'Pentru balonare și gaze intestinale. 50 capsule moi.',
+                    administration: 'Conform prospectului: înainte sau după mese, după cum este necesar.',
+                    sideEffects: [
+                        'Nu au fost raportate efecte secundare semnificative'
+                    ],
+                    stock: 75
+                }
+            ];
+            renderProducts(products);
+        }
+
+        // prescription popup removed from page (upload moved to checkout flow)
+
+        // Product detail popup: show full prescription-like details, administration and full side effects
+        function showProductDetails(productName) {
+            const product = products.find(p => p.name === productName);
+            if (!product) return;
+
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'block';
+
+            let popup = document.getElementById('productDetailPopup');
+            if (!popup) {
+                // create container if not present (should be present in DOM normally)
+                popup = document.createElement('div');
+                popup.id = 'productDetailPopup';
+                popup.className = 'product-detail-popup card';
+                document.body.appendChild(popup);
+            }
+
+            const sideEffectsHtml = product.sideEffects && product.sideEffects.length ? `<ul>${product.sideEffects.map(se => `<li>${se}</li>`).join('')}</ul>` : '<p>Nu sunt efecte secundare cunoscute.</p>';
+
+            popup.innerHTML = `
+                <button onclick="closeProductDetail()" style="float: right; background: none; border: none; font-size: 1.2em; cursor: pointer;">×</button>
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">${product.name}</h3>
+                <p><strong>Descriere:</strong> ${product.description}</p>
+                ${product.administration ? `<p><strong>Administrare:</strong> ${product.administration}</p>` : ''}
+                <p><strong>Efecte secundare:</strong></p>
+                ${sideEffectsHtml}
+                <p style="margin-top: 1rem;"><strong>Pret:</strong> ${product.price} Lei</p>
+                <p><strong>Stoc:</strong> ${product.stock}</p>
+            ${product.prescription ? '<p><strong style="color: var(--primary-dark);">⚕️ Necesită Rețetă</strong></p>' : ''}
+                <div style="margin-top: 1rem; display:flex; gap:1rem;">
+                    ${product.prescription ? `<button onclick="addToCart('${product.name.replace(/'/g, "\\'")}', true)">Adaugă în Coș (Necesită Rețetă)</button>` : `<button onclick="addToCart('${product.name.replace(/'/g, "\\'")}')">Adaugă în Coș</button>`}
+                    <button onclick="closeProductDetail()" style="background-color: #9e9e9e;">Închide</button>
+                </div>
+            `;
+
+            popup.style.display = 'block';
+            popup.style.position = 'fixed';
+            popup.style.left = '50%';
+            popup.style.top = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.zIndex = '1001';
+            popup.style.maxWidth = '600px';
+            popup.style.width = '90%';
+            popup.style.maxHeight = '80vh';
+            popup.style.overflow = 'auto';
+        }
+
+        function closeProductDetail() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'none';
+            const popup = document.getElementById('productDetailPopup');
+            if (popup) popup.style.display = 'none';
+        }
+
+        function openTab(evt, tabName) {
+            let tabcontents = evt.target.parentElement.parentElement.getElementsByClassName("tab-content");
+            for (let tabcontent of tabcontents) {
+                tabcontent.classList.remove("active");
+            }
+            let tabs = evt.target.parentElement.getElementsByClassName("tab");
+            for (let tab of tabs) {
+                tab.classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.target.classList.add("active");
+        }
+
+        // simple addToCart removed — using the unified addToCart(itemName, requiresPrescription=false)
+
+        function showBasket() {
+            alert('Funcționalitatea coșului va fi implementată în curând!');
+        }
+
+        function updatePriceValue(value) {
+            document.getElementById('priceValue').textContent = value + ' Lei';
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const prescriptionFilterEl = document.getElementById('prescriptionFilter');
+            const prescriptionFilter = prescriptionFilterEl ? prescriptionFilterEl.value : 'all';
+            const maxPriceEl = document.getElementById('priceRange');
+            const maxPrice = maxPriceEl ? parseFloat(maxPriceEl.value) : 100;
+
+            const filtered = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || product.category === category;
+                const matchesPrescription = prescriptionFilter === 'all' || 
+                    (prescriptionFilter === 'yes' && product.prescription) ||
+                    (prescriptionFilter === 'no' && !product.prescription);
+                const matchesPrice = product.price <= maxPrice;
+
+                return matchesSearch && matchesCategory && matchesPrescription && matchesPrice;
+            });
+
+            renderProducts(filtered);
+        }
+
+        function renderProducts(productsToShow) {
+            const grid = document.querySelector('.product-grid');
+            grid.innerHTML = '';
+
+            productsToShow.forEach(product => {
+                const safeId = product.name.replace(/\s+/g, '');
+                const card = document.createElement('div');
+                card.className = 'card product-card';
+                card.innerHTML = `
+                    <h3 style="cursor: pointer;" onclick="showProductDetails(${JSON.stringify(product.name)})">${product.name}</h3>
+                    <div class="tabs">
+                        <button class="tab active" onclick="openTab(event, 'description${safeId}')">Descriere</button>
+                    </div>
+                    <div id="description${safeId}" class="tab-content active">
+                        <p>${product.description}</p>
+                        ${product.administration ? `<p><strong>Administrare:</strong> ${product.administration}</p>` : ''}
+                        <p>Cantitate în stoc: ${product.stock}</p>
+                        <p style="color: var(--primary-color); font-weight: bold; font-size: 1.2em;">${product.price} Lei</p>
+                        ${product.prescription ? '<p><strong style="color: var(--primary-dark);">⚕️ Necesită Rețetă</strong></p>' : ''}
+                    </div>
+                    <!-- side effects are shown in the product detail popup; removed from card tabs -->
+                    <button onclick="addToCart('${product.name}', ${product.prescription})">${product.prescription ? 'Adaugă în Coș (Necesită Rețetă)' : 'Adaugă în Coș'}</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function addToCart(itemName, requiresPrescription = false) {
+            const product = products.find(p => p.name === itemName);
+            if (!product) return;
+
+            // If product requires prescription, we don't show the old prescription-popup here.
+            // Instead we add the item to cart and inform user they'll upload the prescription at checkout.
+            if (requiresPrescription) {
+                cart.push({
+                    name: product.name,
+                    price: product.price,
+                    requiresPrescription: true
+                });
+
+                cartCount++;
+                document.getElementById('cart-count').textContent = cartCount;
+                updateCartDisplay();
+
+                const toast = document.createElement('div');
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.right = '20px';
+                toast.style.backgroundColor = 'var(--primary-color)';
+                toast.style.color = 'white';
+                toast.style.padding = '1rem';
+                toast.style.borderRadius = '8px';
+                toast.style.boxShadow = 'var(--shadow)';
+                toast.style.transition = 'opacity 0.3s ease';
+                toast.style.zIndex = '1000';
+                toast.textContent = `${itemName} necesită rețetă — o puteți încărca la finalizarea comenzii.`;
+                document.body.appendChild(toast);
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    setTimeout(() => document.body.removeChild(toast), 300);
+                }, 3000);
+
+                return;
+            }
+
+            cart.push({
+                name: product.name,
+                price: product.price
+            });
+            
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
+            updateCartDisplay();
+
+            // Show toast notification
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.backgroundColor = 'var(--primary-color)';
+            toast.style.color = 'white';
+            toast.style.padding = '1rem';
+            toast.style.borderRadius = '8px';
+            toast.style.boxShadow = 'var(--shadow)';
+            toast.style.transition = 'opacity 0.3s ease';
+            toast.style.zIndex = '1000';
+            toast.textContent = `${itemName} a fost adăugat în coș!`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 2000);
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.style.display = 'flex';
+                itemElement.style.justifyContent = 'space-between';
+                itemElement.style.alignItems = 'center';
+                itemElement.style.padding = '0.5rem 0';
+                itemElement.style.borderBottom = '1px solid var(--border-color)';
+                
+                itemElement.innerHTML = `
+                    <span>${item.name}</span>
+                    <div>
+                        <span style="margin-right: 1rem">${item.price} Lei</span>
+                        <button onclick="removeFromCart(${index})" style="color: var(--error-color); background: none; border: none; cursor: pointer;">×</button>
+                    </div>
+                `;
+                cartItems.appendChild(itemElement);
+                total += item.price;
+            });
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: var(--text-color-light);">Coșul este gol</p>';
+            }
+
+            cartTotal.textContent = total.toFixed(2) + ' Lei';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            cartCount--;
+            document.getElementById('cart-count').textContent = cartCount;
+            updateCartDisplay();
+        }
+
+        function showBasket() {
+            const cartPopup = document.getElementById('cartPopup');
+            cartPopup.style.display = cartPopup.style.display === 'none' ? 'block' : 'none';
+            updateCartDisplay();
+        }
+
+    </script>
+    <script>
+        // Theme management
+        function setTheme(isDark) {
+            document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (isDark) {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Mod Luminos';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Mod Întunecat';
+            }
+
+            // Update CSS variables for theme
+            if (isDark) {
+                document.documentElement.style.setProperty('--background-color', '#1a1a1a');
+                document.documentElement.style.setProperty('--text-color', '#ffffff');
+                document.documentElement.style.setProperty('--card-color', '#2d2d2d');
+                document.documentElement.style.setProperty('--border-color', '#404040');
+                // Indigo / violet palette
+                document.documentElement.style.setProperty('--primary-color', '#512da8');
+                document.documentElement.style.setProperty('--primary-dark', '#311b92');
+                document.documentElement.style.setProperty('--error-color', '#f44336');
+                document.documentElement.style.setProperty('--text-color-light', '#9e9e9e');
+                document.documentElement.style.setProperty('--shadow', '0 2px 8px rgba(0, 0, 0, 0.3)');
+            } else {
+                document.documentElement.style.setProperty('--background-color', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#333333');
+                document.documentElement.style.setProperty('--card-color', '#ffffff');
+                document.documentElement.style.setProperty('--border-color', '#e0e0e0');
+                // Lighter violet primary for light theme
+                document.documentElement.style.setProperty('--primary-color', '#7c4dff');
+                document.documentElement.style.setProperty('--primary-dark', '#5e35b1');
+                document.documentElement.style.setProperty('--error-color', '#f44336');
+                document.documentElement.style.setProperty('--text-color-light', '#757575');
+                document.documentElement.style.setProperty('--shadow', '0 2px 8px rgba(0, 0, 0, 0.1)');
+            }
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            setTheme(currentTheme !== 'dark');
+        }
+
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme === 'dark');
+        } else {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark);
+        }
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+
+        // Sign In functionality
+        function showSignIn() {
+            const signInWindow = document.getElementById('signInWindow');
+            signInWindow.style.display = 'block';
+        }
+
+        function closeSignIn() {
+            const signInWindow = document.getElementById('signInWindow');
+            signInWindow.style.display = 'none';
+        }
+
+        function handleSignIn(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            // Here you would typically handle the authentication
+            // For now, we'll just close the window
+            closeSignIn();
+        }
+    </script>
+
+    <!-- Sign In Window -->
+    <div id="signInWindow" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignIn()">&times;</span>
+            <h2>Autentificare</h2>
+            <form onsubmit="handleSignIn(event)">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Parolă:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Autentificare</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
