@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercitiul 4</title>
+</head>
+<body>
+    <script>
+
+        function verificaDreptunghi(a, b, c, d) {
+            if ((a === c && b === d) || (a === b && c === d) || (a === d && b === c)) {
+                // Calculam perimetrul
+                let perimetru = a + b + c + d;
+
+                if (a === c) {
+                    let aria = a * b;
+                    return {
+                        valid: true,
+                        perimetru: perimetru,
+                        aria: aria
+                    };
+                }
+                else if (a === b) {
+                    let aria = a * c;
+                    return {
+                        valid: true,
+                        perimetru: perimetru,
+                        aria: aria
+                    };
+                }
+                else {
+                    let aria = a * b;
+                    return {
+                        valid: true,
+                        perimetru: perimetru,
+                        aria: aria
+                    };
+                }
+            }
+
+            return {
+                valid: false
+            };
+        }
+
+        let numere1 = [30, 15, 40, 2];
+        let rezultat1 = verificaDreptunghi(numere1[0], numere1[1], numere1[2], numere1[3]);
+        
+        if (rezultat1.valid) {
+            console.log("Cele 4 numere pot reprezenta laturi ale unui dreptunghi!");
+            console.log(`Perimetrul este: ${rezultat1.perimetru}. Aria este: ${rezultat1.aria}.`);
+        } else {
+            console.log("Cele 4 numere nu pot reprezenta laturi ale unui dreptunghi!");
+        }
+
+        let numere2 = [22, 3, 80, 12];
+        let rezultat2 = verificaDreptunghi(numere2[0], numere2[1], numere2[2], numere2[3]);
+        
+        if (rezultat2.valid) {
+            console.log("Cele 4 numere pot reprezenta laturi ale unui dreptunghi!");
+            console.log(`Perimetrul este: ${rezultat2.perimetru}. Aria este: ${rezultat2.aria}.`);
+        } else {
+            console.log("Cele 4 numere nu pot reprezenta laturi ale unui dreptunghi!");
+        }
+    </script>
+</body>
+</html>

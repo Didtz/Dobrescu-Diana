@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercitiul 2</title>
+</head>
+<body>
+    <script>
+
+        let tranzactie1 = true;
+        let tranzactie2 = false;
+
+        if (tranzactie1) {
+            document.write("Tranzactie acceptata!<br>");
+        }
+
+        if (tranzactie2) {
+            document.write("Tranzactie acceptata!<br>");
+        } else {
+            document.write("Tranzactie refuzata!<br>");
+        }
+
+        /* 
+        Descrierea comportamentului:
+        
+        1. Pentru prima instructiune (if simplu cu tranzactie1):
+           - Deoarece tranzactie1 este true, conditia este adevarata
+           - Se va afisa mesajul "Tranzactie acceptata!"
+        
+        2. Pentru a doua instructiune (if-else cu tranzactie2):
+           - pt ca tranzactie2 este false, conditia este falsa
+           - saim peste blocul 'if' si se va executa blocul 'else'
+           - afisam mesajul "Tranzactie refuzata!"
+        
+        Rezultatul final va fi:
+        Tranzactie acceptata!
+        Tranzactie refuzata!
+        
+        Acest comportament se intampla pentru ca instructiunile conditionale (if/else) 
+        evalueaza valoarea booleana a variabilelor si executa blocul de cod corespunzator:
+        - pt valori true, se executa blocul 'if'
+        - pt valori false, se executa blocul 'else' (daca exista)
+        */
+    </script>
+</body>
+</html>

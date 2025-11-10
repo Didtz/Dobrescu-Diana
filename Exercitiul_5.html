@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificare Triunghi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Verificare Triunghi</h1>
+    <div class="result" id="result"></div>
+
+    <script>
+
+        const latura1 = 3;
+        const latura2 = 4;
+        const latura3 = 5;
+
+        function esteTriunghi(a, b, c) {
+            return (a + b > c) && (b + c > a) && (a + c > b);
+        }
+
+        function tipTriunghi(a, b, c) {
+            if (a === b && b === c) {
+                return "Echilateral";
+            } else if (a === b || b === c || a === c) {
+                return "Isoscel";
+            } else {
+                return "Oarecare";
+            }
+        }
+
+        let rezultat = document.getElementById("result");
+        if (esteTriunghi(latura1, latura2, latura3)) {
+            let tip = tipTriunghi(latura1, latura2, latura3);
+            rezultat.innerHTML = `
+                <p>Laturile ${latura1}, ${latura2} si ${latura3} pot forma un triunghi.</p>
+                <p>Tipul triunghiului: <strong>${tip}</strong></p>
+            `;
+        } else {
+            rezultat.innerHTML = `
+                <p>Laturile ${latura1}, ${latura2} si ${latura3} NU pot forma un triunghi.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
