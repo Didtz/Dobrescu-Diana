@@ -1,28 +1,25 @@
 :root {
-    /* Light theme variables */
-    --primary-color-light: #6b4de6;
-    --primary-light-light: #8f77e8;
-    --primary-dark-light: #4a34a0;
+    --primary-color-light: #f7b0d4;
+    --primary-light-light: #c504b5;
+    --primary-dark-light: #910387;
     --background-color-light: #f8f7ff;
     --card-color-light: #ffffff;
     --text-color-light: #2c2c2c;
-    --shadow-light: 0 4px 6px rgba(107, 77, 230, 0.1);
+    --shadow-light: 0 4px 6px rgba(251, 5, 157, 0.1);
     --border-color-light: #e0e0e0;
 
-    /* Dark theme variables */
-    --primary-color-dark: #9b7ff7;
-    --primary-light-dark: #b4a0f9;
-    --primary-dark-dark: #6b4de6;
+    --primary-color-dark: #59053f;
+    --primary-light-dark: #f910e2;
+    --primary-dark-dark: #b10277;
     --background-color-dark: #121212;
     --card-color-dark: #1e1e1e;
     --text-color-dark: #e0e0e0;
     --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
     --border-color-dark: #333333;
 
-    /* Default to light theme */
-    --primary-color: var(--primary-color-light);
-    --primary-light: var(--primary-light-light);
-    --primary-dark: var(--primary-dark-light);
+    --primary-color: #f7b0d4; 
+    --primary-light: #c504b5;
+    --primary-dark: #910387;
     --background-color: var(--background-color-light);
     --card-color: var(--card-color-light);
     --text-color: var(--text-color-light);
@@ -45,9 +42,9 @@
 
 /* Manual theme toggle support */
 [data-theme="dark"] {
-    --primary-color: var(--primary-color-dark);
-    --primary-light: var(--primary-light-dark);
-    --primary-dark: var(--primary-dark-dark);
+    --primary-color: #a6026a;
+    --primary-light: #e785bd;
+    --primary-dark: #81004f;
     --background-color: var(--background-color-dark);
     --card-color: var(--card-color-dark);
     --text-color: var(--text-color-dark);
@@ -69,14 +66,72 @@ body {
     min-height: 100vh;
     overflow-y: auto;
     margin: 0;
+    padding: 2rem;
+}
+
+/* Main content area styling */
+.main-content {
+    padding-bottom: 3rem;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Header card styles */
+.header {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 0.5rem auto 3.5rem auto; /* Increased margin for more separation */
+    padding: 1.5rem;
+    max-width: 1200px;
+    border: 1px solid var(--border-color);
+}
+
+.header .container {
+    padding: 0.5rem 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Centered filters card */
+.filters-card {
+    max-width: 1100px;
+    margin: 3rem auto 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Filter group container */
+.filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Individual filter group */
+.filter-group {
+    position: relative;
+    width: 100%;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
 }
 
 .card {
@@ -91,19 +146,67 @@ body {
     transform: translateY(-2px);
 }
 
+/* Navigation link styles */
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: var(--primary-color);
+    color: var(--card-color);
+}
+
+/* Basket icon specific styles */
+.basket-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.basket-icon:hover {
+    background-color: var(--primary-color);
+    color: var(--card-color);
+}
+
+/* Cart count badge */
+#cart-count {
+    background: var(--primary-dark);
+    color: var(--card-color);
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
 input, select {
     width: 100%;
     padding: 12px;
     margin: 8px 0;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
+    background-color: var(--card-color);
+    color: var(--text-color);
+    cursor: pointer;
 }
 
 input:focus, select:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-light);
+}
+
+/* Style for select when open */
+select:active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 button {
@@ -196,11 +299,12 @@ button:hover {
     gap: 1rem;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center; /* center filter items */
 }
 
 .filter-group {
-    flex: 1;
-    min-width: 200px;
+    flex: 0 1 240px;
+    min-width: 180px;
 }
 
 .prescription-popup {
@@ -212,7 +316,20 @@ button:hover {
 }
 
 .overlay {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1000;
+}
+
+/* Product detail popup */
+.product-detail-popup {
+    max-width: 640px;
+    width: 92%;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
 }
 
 /* Dark mode adjustments */
