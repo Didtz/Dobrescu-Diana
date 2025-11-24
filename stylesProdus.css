@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #350101;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(202, 183, 183);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.produs {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.produs h2 {
+    text-align: center;
+    color: #000;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.produs img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#btnDetalii {
+    width: 100%;
+    padding: 12px 20px;
+    background: #410404;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#detalii {
+    transition: all 0.3s ease;
+}
+
+#detalii.ascuns {
+    display: none;
+}
+
+#detalii p {
+    color: #000;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+#dataProdus {
+    font-weight: bold;
+    color: #8b1515;
+}
