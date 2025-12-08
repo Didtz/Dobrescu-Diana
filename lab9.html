@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formular de Contact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        input.is-invalid,
+        textarea.is-invalid {
+            border-color: #e74c3c;
+            background-color: #fadbd8;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background-color: #d5f4e6;
+            color: #27ae60;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            display: none;
+            border-left: 4px solid #27ae60;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .success-message p {
+            margin: 5px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formular de Contact</h1>
+
+        <!-- Success message -->
+        <div id="successContainer" class="success-message">
+            <h2>Mulțumim!</h2>
+            <p><strong>Nume:</strong> <span id="successName"></span></p>
+            <p><strong>Mesajul dvs. a fost trimis cu succes!</strong></p>
+            <p><em>Răspunsul dvs: <span id="successMessageText"></span></em></p>
+        </div>
+
+        <!-- Contact form -->
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Nume *</label>
+                <input type="text" id="name" name="name" placeholder="Introduceți numele dvs.">
+                <div id="nameError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" placeholder="Introduceți email-ul dvs.">
+                <div id="emailError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Mesaj *</label>
+                <textarea id="message" name="message" placeholder="Introduceți mesajul dvs. (minim 10 caractere)"></textarea>
+                <div id="messageError" class="error-message"></div>
+            </div>
+
+            <button type="submit">Trimite</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const successDiv = document.getElementById('successContainer');
+
+        // Validation functions
+        function validateName(name) {
+            return name.trim().length >= 3;
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validateMessage(message) {
+            return message.trim().length >= 10;
+        }
+
+        // Clear error message when user starts typing
+        nameInput.addEventListener('input', function() {
+            document.getElementById('nameError').classList.remove('show');
+            nameInput.classList.remove('is-invalid');
+        });
+
+        emailInput.addEventListener('input', function() {
+            document.getElementById('emailError').classList.remove('show');
+            emailInput.classList.remove('is-invalid');
+        });
+
+        messageInput.addEventListener('input', function() {
+            document.getElementById('messageError').classList.remove('show');
+            messageInput.classList.remove('is-invalid');
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const message = messageInput.value;
+
+            let isValid = true;
+
+            // Reset error states
+            document.getElementById('nameError').classList.remove('show');
+            document.getElementById('emailError').classList.remove('show');
+            document.getElementById('messageError').classList.remove('show');
+            nameInput.classList.remove('is-invalid');
+            emailInput.classList.remove('is-invalid');
+            messageInput.classList.remove('is-invalid');
+
+            // Validate name
+            if (!validateName(name)) {
+                document.getElementById('nameError').textContent = 'Numele trebuie să aibă cel puțin 3 caractere.';
+                document.getElementById('nameError').classList.add('show');
+                nameInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            // Validate email
+            if (!validateEmail(email)) {
+                document.getElementById('emailError').textContent = 'Introduceți o adresă de email validă.';
+                document.getElementById('emailError').classList.add('show');
+                emailInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            // Validate message
+            if (!validateMessage(message)) {
+                document.getElementById('messageError').textContent = 'Mesajul trebuie să aibă cel puțin 10 caractere.';
+                document.getElementById('messageError').classList.add('show');
+                messageInput.classList.add('is-invalid');
+                isValid = false;
+            }
+
+            // If valid, show success message
+            if (isValid) {
+                // Show success message with user data
+                document.getElementById('successName').textContent = name;
+                document.getElementById('successMessageText').textContent = message;
+                successDiv.classList.add('show');
+                
+                // Save data to localStorage (optional - for persistence)
+                const contactData = {
+                    timestamp: new Date().toLocaleString(),
+                    name: name,
+                    email: email,
+                    message: message
+                };
+                
+                let submissions = JSON.parse(localStorage.getItem('contactSubmissions')) || [];
+                submissions.push(contactData);
+                localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+                
+                // Reset form
+                form.reset();
+                
+                // Scroll to success message
+                successDiv.scrollIntoView({ behavior: 'smooth' });
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successDiv.classList.remove('show');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
