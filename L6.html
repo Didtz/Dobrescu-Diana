@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalog Studenti</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:40px;background:#1a1a1a;color:#ffffff}
+    h1{margin-bottom:10px;color:#ffffff}
+    form{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    input,select{padding:6px;font-size:14px;background:#333333;color:#ffffff;border:1px solid #555555}
+    button{padding:6px;font-size:14px;background:#555555;color:#ffffff;border:1px solid #777777;cursor:pointer}
+    button:hover{background:#777777}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{border:1px solid #444444;padding:8px;text-align:left;color:#ffffff}
+    th{background:#2a2a2a}
+    td{background:#1a1a1a}
+    .mesaj{margin-top:10px;color:#aaaaaa}
+    .eroare{margin-top:10px;color:#999999}
+  </style>
+</head>
+<body>
+  <h1>Catalog Studenti</h1>
+  <form id="form">
+    <input id="nume" name="nume" placeholder="Nume" required>
+    <select id="an" name="an">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <input id="media" name="media" type="number" step="0.01" min="0" max="10" placeholder="Media" required>
+    <button type="submit">Adauga</button>
+  </form>
+  <div id="status"></div>
+  <div style="margin-top:20px;margin-bottom:20px;padding:10px;background:#2a2a2a;border:1px solid #444444">
+    <div style="margin-bottom:10px">
+      <label>Cauta dupa nume:</label>
+      <input id="cautare_nume" type="text" placeholder="Ion, Maria, etc..." style="margin-left:10px;width:200px">
+    </div>
+    <div style="margin-bottom:10px">
+      <label>Filtreaza dupa an:</label>
+      <select id="filtru_an" style="margin-left:10px">
+        <option value="">Toti</option>
+        <option value="1">Anul 1</option>
+        <option value="2">Anul 2</option>
+        <option value="3">Anul 3</option>
+        <option value="4">Anul 4</option>
+      </select>
+    </div>
+    <div style="margin-bottom:10px">
+      <label>Media minima:</label>
+      <input id="media_min" type="number" min="0" max="10" step="0.01" placeholder="0" style="margin-left:10px;width:80px">
+      <label style="margin-left:20px">Media maxima:</label>
+      <input id="media_max" type="number" min="0" max="10" step="0.01" placeholder="10" style="margin-left:10px;width:80px">
+    </div>
+  </div>
+  <table id="lista">
+    <thead>
+      <tr><th>Nume</th><th>An</th><th>Media</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    let totiStudentii = [];
+    const listaBody = document.querySelector('#lista tbody');
+    const statusDiv = document.getElementById('status');
+    const cautareNumeInput = document.getElementById('cautare_nume');
+    const filtruAnSelect = document.getElementById('filtru_an');
+    const mediaMinInput = document.getElementById('media_min');
+    const mediaMaxInput = document.getElementById('media_max');
+    
+    function afiseaza(students){
+      listaBody.innerHTML = '';
+      students.forEach(s=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${s.nume}</td><td>${s.an}</td><td>${parseFloat(s.media).toFixed(2)}</td>`;
+        listaBody.appendChild(tr);
+      });
+    }
+    
+    function filtreaza(){
+      const cautare = cautareNumeInput.value.toLowerCase().trim();
+      const an = filtruAnSelect.value;
+      const mediaMin = mediaMinInput.value ? parseFloat(mediaMinInput.value) : 0;
+      const mediaMax = mediaMaxInput.value ? parseFloat(mediaMaxInput.value) : 10;
+      
+      let filtrati = totiStudentii.filter(s=>{
+        const numeOk = cautare === '' || s.nume.toLowerCase().includes(cautare);
+        const anOk = an === '' || s.an == an;
+        const mediaOk = parseFloat(s.media) >= mediaMin && parseFloat(s.media) <= mediaMax;
+        return numeOk && anOk && mediaOk;
+      });
+      
+      afiseaza(filtrati);
+    }
+    
+    async function incarca(){
+      try{
+        const r = await fetch('api.php');
+        const j = await r.json();
+        totiStudentii = j.students || [];
+        filtreaza();
+      }catch(e){
+        statusDiv.innerHTML = '<div class="eroare">Eroare incarcare</div>'
+      }
+    }
+    
+    cautareNumeInput.addEventListener('input', filtreaza);
+    filtruAnSelect.addEventListener('change', filtreaza);
+    mediaMinInput.addEventListener('input', filtreaza);
+    mediaMaxInput.addEventListener('input', filtreaza);
+    
+    document.getElementById('form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      statusDiv.innerHTML = '';
+      const nume = document.getElementById('nume').value.trim();
+      const an = parseInt(document.getElementById('an').value,10);
+      const media = parseFloat(document.getElementById('media').value);
+      if(nume === '' || !an || an<1 || an>4 || isNaN(media) || media<0 || media>10){
+        statusDiv.innerHTML = '<div class="eroare">Date invalide</div>';
+        return;
+      }
+      try{
+        const r = await fetch('api.php',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({nume,an,media})
+        });
+        const j = await r.json();
+        if(!r.ok || j.ok !== true){
+          statusDiv.innerHTML = '<div class="eroare">Eroare la adaugare</div>';
+          return;
+        }
+        statusDiv.innerHTML = '<div class="mesaj">Student adaugat</div>';
+        document.getElementById('form').reset();
+        incarca();
+      }catch(e){
+        statusDiv.innerHTML = '<div class="eroare">Eroare retea</div>';
+      }
+    });
+    incarca();
+  </script>
+</body>
+</html>
