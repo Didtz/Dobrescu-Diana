@@ -1,0 +1,332 @@
+
+:root {
+        --background-color: #ffffff; 
+        --text-color: #222222;      
+        --card-color: #ffffff;       
+        --border-color: #f0e6f6;     
+        --primary-color: #f9a0be;    
+        --primary-dark: #a21f81;     
+        --primary-color-light: #f8bbd0; 
+        --error-color: #f799b8;
+        --text-color-light: #9e9e9e;
+        --shadow: 0 2px 10px rgba(204, 13, 143, 0.12);
+}
+
+body {
+        background-image: url('fundal2.jpg'); 
+        
+        background-color: var(--background-color);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+}
+
+/* Stiluri pentru categorii de medicamente */
+.medicine-category-title {
+    grid-column: 1 / -1;
+    margin: 2rem 0 1rem;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: var(--card-color);
+    border-radius: 8px;
+    font-size: 1.2em;
+    border: 1px solid var(--border-color);
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card .price-tag {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.product-card .stock-info {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+}
+
+.product-card .prescription-badge {
+    display: inline-block;
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 0.3em 0.6em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.medicine-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tab-content {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.stock-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stock-status.in-stock {
+    color: var(--primary-color-light);
+}
+
+.stock-status.low-stock {
+    color: #f57c00;
+}
+
+.stock-status.out-of-stock {
+    color: #ff5252;
+}
+
+[data-theme="dark"] .stock-status.in-stock {
+    color: #4caf50;
+}
+
+[data-theme="dark"] .stock-status.low-stock {
+    color: #ffa726;
+}
+
+[data-theme="dark"] .stock-status.out-of-stock {
+    color: #ff5252;
+}
+
+/* Animații pentru carduri */
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(107, 77, 230, 0.1);
+}
+
+/* Badge pentru oferte speciale */
+.special-offer {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff4081;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Stiluri pentru filtre */
+.filter-section {
+    position: sticky;
+    top: 80px; /* Height of the header */
+    z-index: 90;
+    background: var(--background-color);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Ensure proper scrolling on smaller screens */
+@media (max-width: 768px) {
+    .filter-section {
+        position: static;
+        margin-bottom: 2rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+.filter-group {
+    position: relative;
+    width: 100%;
+}
+
+.filter-group select {
+    appearance: none;
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--card-color);
+    color: var(--text-color);
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.filter-group::after {
+    content: '▼';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+    font-size: 0.8em;
+}
+
+/* Sign In Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--card-color);
+    margin: 15% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow);
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color-light);
+}
+
+.close:hover {
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Price Filter Styles */
+.price-filter {
+    margin-top: 1rem;
+}
+
+.price-range-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.price-label {
+    color: var(--text-color);
+    font-size: 0.9em;
+    min-width: 70px;
+}
+
+.price-range {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--border-color);
+    outline: none;
+    border-radius: 2px;
+}
+
+.price-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.price-range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.price-range::-webkit-slider-thumb:hover {
+    background: var(--primary-dark);
+}
+
+.price-range::-moz-range-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Responsive design ajustments */
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}

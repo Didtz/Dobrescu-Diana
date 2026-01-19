@@ -1,0 +1,380 @@
+:root {
+    --primary-color-light: #f7b0d4;
+    --primary-light-light: #c504b5;
+    --primary-dark-light: #910387;
+    --background-color-light: #f8f7ff;
+    --card-color-light: #ffffff;
+    --text-color-light: #2c2c2c;
+    --shadow-light: 0 4px 6px rgba(251, 5, 157, 0.1);
+    --border-color-light: #e0e0e0;
+
+    --primary-color-dark: #59053f;
+    --primary-light-dark: #f910e2;
+    --primary-dark-dark: #b10277;
+    --background-color-dark: #121212;
+    --card-color-dark: #1e1e1e;
+    --text-color-dark: #e0e0e0;
+    --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --border-color-dark: #333333;
+
+    --primary-color: #f7b0d4; 
+    --primary-light: #c504b5;
+    --primary-dark: #910387;
+    --background-color: var(--background-color-light);
+    --card-color: var(--card-color-light);
+    --text-color: var(--text-color-light);
+    --shadow: var(--shadow-light);
+    --border-color: var(--border-color-light);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: var(--primary-color-dark);
+        --primary-light: var(--primary-light-dark);
+        --primary-dark: var(--primary-dark-dark);
+        --background-color: var(--background-color-dark);
+        --card-color: var(--card-color-dark);
+        --text-color: var(--text-color-dark);
+        --shadow: var(--shadow-dark);
+        --border-color: var(--border-color-dark);
+    }
+}
+
+/* Manual theme toggle support */
+[data-theme="dark"] {
+    --primary-color: #a6026a;
+    --primary-light: #e785bd;
+    --primary-dark: #81004f;
+    --background-color: var(--background-color-dark);
+    --card-color: var(--card-color-dark);
+    --text-color: var(--text-color-dark);
+    --shadow: var(--shadow-dark);
+    --border-color: var(--border-color-dark);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-y: auto;
+    margin: 0;
+    padding: 2rem;
+}
+
+/* Main content area styling */
+.main-content {
+    padding-bottom: 3rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Header card styles */
+.header {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 0.5rem auto 3.5rem auto; /* Increased margin for more separation */
+    padding: 1.5rem;
+    max-width: 1200px;
+    border: 1px solid var(--border-color);
+}
+
+.header .container {
+    padding: 0.5rem 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Centered filters card */
+.filters-card {
+    max-width: 1100px;
+    margin: 3rem auto 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Filter group container */
+.filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* Individual filter group */
+.filter-group {
+    position: relative;
+    width: 100%;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.card {
+    background-color: var(--card-color);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Navigation link styles */
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: var(--primary-color);
+    color: var(--card-color);
+}
+
+/* Basket icon specific styles */
+.basket-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.basket-icon:hover {
+    background-color: var(--primary-color);
+    color: var(--card-color);
+}
+
+/* Cart count badge */
+#cart-count {
+    background: var(--primary-dark);
+    color: var(--card-color);
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: var(--card-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-light);
+}
+
+/* Style for select when open */
+select:active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--primary-light);
+}
+
+.header {
+    background-color: var(--card-color);
+    box-shadow: var(--shadow);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.basket-icon {
+    background-color: var(--primary-light);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    color: var(--text-color);
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; /* center filter items */
+}
+
+.filter-group {
+    flex: 0 1 240px;
+    min-width: 180px;
+}
+
+.prescription-popup {
+    max-width: 400px;
+    width: 90%;
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 1000;
+}
+
+/* Product detail popup */
+.product-detail-popup {
+    max-width: 640px;
+    width: 92%;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] input[type="file"] {
+    background: var(--card-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] input[type="file"]::file-selector-button {
+    background: var(--primary-color);
+    color: var(--card-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+[data-theme="dark"] .card {
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] select {
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] input[type="range"] {
+    background-color: var(--primary-dark);
+}
+
+[data-theme="dark"] input[type="range"]::-webkit-slider-thumb {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] input[type="range"]::-moz-range-thumb {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .nav-links a {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .nav-links a:hover {
+    color: var(--primary-color);
+}

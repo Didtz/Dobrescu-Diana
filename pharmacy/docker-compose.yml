@@ -1,0 +1,30 @@
+services:
+  pharmacy-db:
+    image: mysql:8.0
+    container_name: pharmacy-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pharmacy
+    ports:
+      - "3306:3306"
+    volumes:
+      - pharmacy-db-data:/var/lib/mysql
+    restart: unless-stopped
+
+  pharmacy-web:
+    image: pharmacy-pharmacy-web:latest
+    container_name: pharmacy-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - C:/Users/diana/TW/Proiect/lamp-studenti/studenti/pharmacy:/app
+      - C:/Users/diana/TW/Proiect/student:/app/api
+    environment:
+      - NODE_ENV=development
+      - API_PATH=/app/api
+    depends_on:
+      - pharmacy-db
+    restart: unless-stopped
+
+volumes:
+  pharmacy-db-data:

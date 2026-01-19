@@ -1,0 +1,171 @@
+/* Stiluri pentru categorii de medicamente */
+.medicine-category-title {
+    grid-column: 1 / -1;
+    margin: 2rem 0 1rem;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: var(--card-color);
+    border-radius: 8px;
+    font-size: 1.2em;
+    border: 1px solid var(--border-color);
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card .price-tag {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.product-card .stock-info {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+}
+
+.product-card .prescription-badge {
+    display: inline-block;
+    background-color: var(--primary-dark);
+    color: white;
+    padding: 0.3em 0.6em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.medicine-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tab-content {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.stock-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stock-status.in-stock {
+    color: var(--primary-color-light);
+}
+
+.stock-status.low-stock {
+    color: #f57c00;
+}
+
+.stock-status.out-of-stock {
+    color: #ff5252;
+}
+
+[data-theme="dark"] .stock-status.in-stock {
+    color: #4caf50;
+}
+
+[data-theme="dark"] .stock-status.low-stock {
+    color: #ffa726;
+}
+
+[data-theme="dark"] .stock-status.out-of-stock {
+    color: #ff5252;
+}
+
+/* Animații pentru carduri */
+.product-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(107, 77, 230, 0.1);
+}
+
+/* Badge pentru oferte speciale */
+.special-offer {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ff4081;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Stiluri pentru filtre */
+.filter-section {
+    position: sticky;
+    top: 80px; /* Height of the header */
+    z-index: 90;
+    background: var(--background-color);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Ensure proper scrolling on smaller screens */
+@media (max-width: 768px) {
+    .filter-section {
+        position: static;
+        margin-bottom: 2rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+.filter-group {
+    position: relative;
+}
+
+.filter-group select {
+    appearance: none;
+    padding-right: 2rem;
+}
+
+.filter-group::after {
+    content: '▼';
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+}
+
+/* Responsive design ajustments */
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}

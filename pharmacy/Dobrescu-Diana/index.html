@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacie Online - Autentificare</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div class="card" style="width: 100%; max-width: 400px;">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">Bine ați venit la Farmacia Online</h2>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label class="label" for="username">Nume de utilizator</label>
+                <input type="text" id="username" name="username" required 
+                       placeholder="Introduceți numele de utilizator">
+            </div>
+            <div class="form-group">
+                <label class="label" for="password">Parolă</label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Introduceți parola">
+            </div>
+            <button type="submit" style="width: 100%;">Autentificare</button>
+        </form>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <p>Nu aveți cont? <a href="signup.html" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">Înregistrare</a></p>
+        </div>
+    </div>
+</body>
+</html>
